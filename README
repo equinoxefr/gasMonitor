@@ -1,0 +1,5 @@
+Gas monitoring device.
+
+This device use an arduino and reports data to a Domoticz server using a RFXCom device.
+
+You will need this library https://github.com/pyrou/x10rf to use the sketch
