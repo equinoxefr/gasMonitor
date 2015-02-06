@@ -11,6 +11,7 @@
 
 #define SCHEMA 69 // Change value to initialize or reset the EEPROM
 //#define DEBUG 1 // serial debug
+#define WITHDHT22
 #define DHT22_PIN 5 // Temp/humidity sensor pin
 #define txPin 7 // RF 433MHz module
 #define txRetry 5 // delay for retry when sending packets
@@ -78,13 +79,14 @@ void setup()
   Serial.print("Reading data from eeprom: ");
   Serial.println(pulses);
 #endif
+#ifdef WITHDHT22
   // Setup OOK packets for Oregon sensors
   byte ID[] = {
     0x1A,0x2D  };
   setType(OregonMessageBuffer, ID);
   setChannel(OregonMessageBuffer, 0x20);
   setId(OregonMessageBuffer, 0xBB);
-
+#endif
   // Setup pins
   pinMode(transmitLedPin,OUTPUT);
   pinMode(reedLedPin,OUTPUT);
@@ -117,6 +119,7 @@ void loop()
   {
     timerSend=0;
     myx10.RFXmeter(12,0,pulses);
+#ifdef WITHDHT22
     int chk = DHT.read22(DHT22_PIN);
 #ifdef DEBUG
     Serial.print("Temp: ");
@@ -133,6 +136,8 @@ void loop()
     delayMicroseconds(TWOTIME*8);
     sendOregon(OregonMessageBuffer, sizeof(OregonMessageBuffer));
     SEND_LOW();
+    
+#endif
 
   }
 }
