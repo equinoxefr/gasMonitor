@@ -4,7 +4,7 @@
 
 
 #include <x10rf.h>
-#include <Energia.h>
+//#include <Energia.h>
 #include <avr/eeprom.h>
 #include <dht.h>
 
