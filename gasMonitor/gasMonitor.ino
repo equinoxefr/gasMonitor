@@ -17,6 +17,7 @@
 #define txRetry 5 // delay for retry when sending packets
 #define transmitLedPin 13 
 #define reedLedPin 12
+#define rfxSensorID 12
 #define reedInterrupt 0 // Reed switch pin
 #define delayPulse 5 // wait between two pulses. Avoid false reading with slow rotation
 
@@ -118,7 +119,7 @@ void loop()
   if (timerSend >= 30*5)
   {
     timerSend=0;
-    myx10.RFXmeter(12,0,pulses);
+    myx10.RFXmeter(rfxSensorID,0,pulses);
 #ifdef WITHDHT22
     int chk = DHT.read22(DHT22_PIN);
 #ifdef DEBUG
